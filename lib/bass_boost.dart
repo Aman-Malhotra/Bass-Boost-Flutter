@@ -1,7 +1,5 @@
 import 'dart:async';
-
 import 'package:flutter/services.dart';
-import 'package:meta/meta.dart';
 
 /// You can increase the Bass in any playing audio using this class.
 /// This plugin uses the android BassBoost class inside the AudioEffects package.
@@ -13,7 +11,7 @@ import 'package:meta/meta.dart';
 ///
 /// id = audioSessionId for the playingSong
 ///
-/// The named parameter audioSessionId is a compulsory parameter,
+/// The parameter audioSessionId is a compulsory parameter,
 /// without passing any value to this parameter the plugin wont work.
 class BassBoost {
   static const MethodChannel _channel = const MethodChannel('bass_boost');
@@ -22,7 +20,7 @@ class BassBoost {
   /// pass the `audioSessionId` of the playing song to this constructor
   /// while initializing the object for this class.
   /// Use the same object to call all other methods.
-  BassBoost({@required int audioSessionId}) {
+  BassBoost(int audioSessionId) {
     _initAudioSessionId(audioSessionId);
   }
   _initAudioSessionId(int i) async {
@@ -35,7 +33,7 @@ class BassBoost {
   ///
   /// setEnabled(enabled: b); will turn on the bass but
   /// the initial setrength will be set to zero
-  setEnabled({@required bool enabled}) async {
+  setEnabled(bool enabled) async {
     Map<String, bool> map = <String, bool>{};
     map.putIfAbsent("enable", () => enabled);
     await _channel.invokeMethod('setEnabled', map);
@@ -49,7 +47,7 @@ class BassBoost {
 
   /// pass an `integer` value ranging `[0,1000]` to change the strenght of the bass.
   /// Values less then 0 and greater than 1000 wil be neglected.
-  setStrength({@required int strength}) async {
+  setStrength(int strength) async {
     if (strength >= 0 && strength <= 1000) {
       Map<String, int> map = <String, int>{};
       map.putIfAbsent("strength", () => strength);

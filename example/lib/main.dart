@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:bass_boost/bass_boost.dart';
@@ -26,9 +25,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   initAudioSessionId({@required int id}) {
-    bassBoost = new BassBoost(
-      audioSessionId: id,
-    );
+    bassBoost = new BassBoost(id);
   }
 
   updateBassEnabled() {
@@ -72,7 +69,7 @@ class _MyAppState extends State<MyApp> {
                 ),
                 Switch(
                   onChanged: (bool b) {
-                    bassBoost.setEnabled(enabled: b);
+                    bassBoost.setEnabled( b);
                     updateBassEnabled();
                   },
                   value: enabled,
@@ -82,7 +79,7 @@ class _MyAppState extends State<MyApp> {
             Slider(
               value: strength,
               onChanged: (d) {
-                bassBoost.setStrength(strength: d.toInt());
+                bassBoost.setStrength(d.toInt());
                 updateBassStrength();
               },
               min: 0,
