@@ -1,11 +1,7 @@
 import 'dart:io';
-
-import 'package:flute_music_player/flute_music_player.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter/services.dart';
 import 'package:bass_boost/bass_boost.dart';
-import 'package:audioplayers/audio_cache.dart';
 
 void main() => runApp(MyApp());
 
@@ -15,29 +11,20 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  MusicFinder audioPlayer = new MusicFinder();
   BassBoost bassBoost;
   bool enabled = false;
   double strength = 0;
-  List<Song> songs;
 
   @override
   void initState() {
     super.initState();
+    initAudioSessionId(id: 0);
+    // this line will give error as you need to pass an audio session Id as a
+    // value to the named parameter id:
+    // and if there is no audio with the id that you passed , this line will give error.
 
-
-    songs = [];
-    MusicFinder.allSongs().then((dynamic s) {
-      songs = s;
-      audioPlayer.play(songs[0].uri);
-      setState((){});
-      audioPlayer.getAudioSessionId().then((int i){
-        print("Initialized");
-        initAudioSessionId(id: i);
-        updateBassEnabled();
-        updateBassStrength();
-      });
-    });
+    updateBassEnabled();
+    updateBassStrength();
   }
 
   initAudioSessionId({@required int id}) {

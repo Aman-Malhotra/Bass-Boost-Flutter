@@ -10,7 +10,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  audioplayers:
 
 flutter:
   plugin:

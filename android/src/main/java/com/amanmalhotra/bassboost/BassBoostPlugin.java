@@ -1,9 +1,6 @@
 package com.amanmalhotra.bassboost;
 
 import android.app.Activity;
-import android.media.MediaPlayer;
-import android.util.Log;
-
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
