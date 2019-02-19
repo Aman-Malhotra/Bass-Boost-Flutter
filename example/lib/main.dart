@@ -1,9 +1,11 @@
 import 'dart:io';
 
+import 'package:flute_music_player/flute_music_player.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/services.dart';
 import 'package:bass_boost/bass_boost.dart';
+import 'package:audioplayers/audio_cache.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,19 +15,35 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  MusicFinder audioPlayer = new MusicFinder();
   BassBoost bassBoost;
   bool enabled = false;
   double strength = 0;
+  List<Song> songs;
+
   @override
   void initState() {
     super.initState();
-    initAudioSessionId(id: 0);
-    updateBassEnabled();
-    updateBassStrength();
+
+
+    songs = [];
+    MusicFinder.allSongs().then((dynamic s) {
+      songs = s;
+      audioPlayer.play(songs[0].uri);
+      setState((){});
+      audioPlayer.getAudioSessionId().then((int i){
+        print("Initialized");
+        initAudioSessionId(id: i);
+        updateBassEnabled();
+        updateBassStrength();
+      });
+    });
   }
 
   initAudioSessionId({@required int id}) {
-    bassBoost = new BassBoost(id);
+    bassBoost = new BassBoost(
+      audioSessionId: id,
+    );
   }
 
   updateBassEnabled() {
@@ -69,7 +87,7 @@ class _MyAppState extends State<MyApp> {
                 ),
                 Switch(
                   onChanged: (bool b) {
-                    bassBoost.setEnabled( b);
+                    bassBoost.setEnabled(enabled: b);
                     updateBassEnabled();
                   },
                   value: enabled,
@@ -79,7 +97,7 @@ class _MyAppState extends State<MyApp> {
             Slider(
               value: strength,
               onChanged: (d) {
-                bassBoost.setStrength(d.toInt());
+                bassBoost.setStrength(strength: d.toInt());
                 updateBassStrength();
               },
               min: 0,

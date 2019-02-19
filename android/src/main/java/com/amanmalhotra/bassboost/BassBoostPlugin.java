@@ -18,7 +18,6 @@ public class BassBoostPlugin implements MethodCallHandler {
     MethodChannel channel;
     Activity activity;
     private int audioSesionId;
-    MediaPlayer mediaPlayer;
     BassClass bass;
 
     /**
@@ -32,10 +31,6 @@ public class BassBoostPlugin implements MethodCallHandler {
     BassBoostPlugin(Activity activity, MethodChannel methodChannel) {
         this.activity = activity;
         this.channel = methodChannel;
-        mediaPlayer = MediaPlayer.create(this.activity, R.raw.lenka);
-        audioSesionId = mediaPlayer.getAudioSessionId();
-        mediaPlayer.start();
-        mediaPlayer.setLooping(true);
     }
 
     @Override
@@ -60,7 +55,7 @@ public class BassBoostPlugin implements MethodCallHandler {
     }
 
     public void initAudioSessionId(int i) {
-//        this.audioSesionId = i;
+       this.audioSesionId = i;
     }
 
     public void initBass() {

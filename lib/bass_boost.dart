@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 /// You can increase the Bass in any playing audio using this class.
@@ -7,7 +8,7 @@ import 'package:flutter/services.dart';
 /// Initialize the object for this class by passing the audio session id for the playing
 /// song as a parameter to the constructor of the class.
 ///
-/// `BassBoost bassBoost = new BassBoost(audioSessionId: id);`
+/// `BassBoost bassBoost = new BassBoost(id);`
 ///
 /// id = audioSessionId for the playingSong
 ///
@@ -20,7 +21,7 @@ class BassBoost {
   /// pass the `audioSessionId` of the playing song to this constructor
   /// while initializing the object for this class.
   /// Use the same object to call all other methods.
-  BassBoost(int audioSessionId) {
+  BassBoost({@required int audioSessionId}) {
     _initAudioSessionId(audioSessionId);
   }
   _initAudioSessionId(int i) async {
@@ -29,11 +30,11 @@ class BassBoost {
     await _channel.invokeMethod('initAudioSessionId', map);
   }
 
-  /// pass a `boolean` value to enable the bass or to diable it.
+  /// pass a `boolean` value to enable the bass or to disable it.
   ///
   /// setEnabled(enabled: b); will turn on the bass but
   /// the initial setrength will be set to zero
-  setEnabled(bool enabled) async {
+  setEnabled({@required bool enabled}) async {
     Map<String, bool> map = <String, bool>{};
     map.putIfAbsent("enable", () => enabled);
     await _channel.invokeMethod('setEnabled', map);
@@ -47,7 +48,7 @@ class BassBoost {
 
   /// pass an `integer` value ranging `[0,1000]` to change the strenght of the bass.
   /// Values less then 0 and greater than 1000 wil be neglected.
-  setStrength(int strength) async {
+  setStrength({@required int strength}) async {
     if (strength >= 0 && strength <= 1000) {
       Map<String, int> map = <String, int>{};
       map.putIfAbsent("strength", () => strength);
