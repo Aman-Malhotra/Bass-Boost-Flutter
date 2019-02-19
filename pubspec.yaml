@@ -1,6 +1,6 @@
 name: bass_boost
-description: A flutter plugin to increase bass in any audio.
-version: 0.1.0
+description: A flutter plugin to control the bass of any audio that is playing in the android device using the  audioSessionId of the playing audio.
+version: 0.1.1
 author: Aman Malhotra <official.aman18@gmail.com>
 homepage: https://github.com/aman-malhotra-1999/Bass-Boost-Flutter
 

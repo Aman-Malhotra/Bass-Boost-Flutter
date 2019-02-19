@@ -17,7 +17,6 @@ import 'package:flutter/services.dart';
 class BassBoost {
   static const MethodChannel _channel = const MethodChannel('bass_boost');
 
-
   /// pass the `audioSessionId` of the playing song to this constructor
   /// while initializing the object for this class.
   /// Use the same object to call all other methods.
